@@ -1,9 +1,5 @@
 Template.home.events({
   'click button#log-in': function () {
-    Router.go('library');
-
-    return; // debug :)
-
     Meteor.loginWithGoogle({
       requestPermissions: ['profile', 'email']
     }, function () {
