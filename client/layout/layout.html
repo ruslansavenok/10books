@@ -1,7 +1,18 @@
 <template name="layout">
-	<a href="{{pathFor 'home'}}">Home</a>
-	<a href="{{pathFor 'orders'}}">Orders</a>
+	<a href="{{ pathFor 'library' }}"
+     class="{{ isActiveRoute 'library' 'active-item' }}">
+     Library
+  </a>
+	<a href="{{ pathFor 'orders' }}"
+     class="{{ isActiveRoute 'orders' 'active-item' }}">
+     Orders
+  </a>
+  <a href="{{ pathFor 'all' }}"
+     class="{{ isActiveRoute 'all' 'active-item' }}">
+     All
+  </a>
 
+  <button class="mrt-layout__logout">Log Out</button>
 
 	<div>
 		{{> yield}}
