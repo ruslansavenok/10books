@@ -64,12 +64,40 @@ Template.layout.events({
     console.log('fuc');
 
     var $btn = $(e.target);
-    var bookId = $btn.data('book-id');
+    var bookId = getBookIdFromParentRow(e.target);
+    var book = Books.find({_id: bookId});
     var user = Meteor.getUser();
+    var takenByUser = Meteor.getUser(book.taken_by);
 
-    var emailText = 'Book {{ name }} was returned by {{ uname }} and now available';
+    //var emailText = 'Book ' + book.name + ' was returned by ' + takenByUser.name + ' and now available';
 
-    Meteor.call('sendMail', user.email, '10Books: Book Available', emailText);
+    //Meteor.call('sendMail', user.email, '10Books: Book Available', emailText);
+    Books.update({_id: bookId}, {
+      $push: {subscribers: Meteor.user().id}
+    });
+  },
+
+  'click .mrt__take-book': function (e) {
+    var bookId = getBookIdFromParentRow(e.target);
+
+    Books.update({_id: bookId}, {
+      $set: {
+        status: 'taken',
+        taken_by: Meteor.getUser().id,
+        taken_date: new Date().getTime()
+      }
+    });
+  },
+  'click .mrt__return-book': function (e) {
+    var bookId = getBookIdFromParentRow(e.target);
+
+    Books.update({_id: bookId}, {
+      $set: {
+        status: 'in_library',
+        taken_by: null,
+        taken_date: null
+      }
+    });
   },
 
   'submit .mrt__add-order-form': function (e) {
@@ -97,3 +125,6 @@ Template.layout.books = function(){
   });
 }
 
+function getBookIdFromParentRow(target) {
+  return $(target).parents('.book-row').data('book-id');
+}

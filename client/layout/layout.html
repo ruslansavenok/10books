@@ -100,66 +100,55 @@
         </tr>
       </thead>
       <tbody>
+      {{#each books}}
+      <tr class="book-row" data-book-id="{{ _id }}">
+        <td>{{ name }}</td>
+        <td class="text-center">{{ author}}</td>
+        <td class="text-center">CATEGORY</td>
+        <td class="text-center">
+          {{#if currUser.isAdmin}}
+          <div class="btn-group text-left">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+              {{ currentBookStatus status}}<span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-right mrt__status-change" role="menu">
+              {{#each bookStatuses}}
+                <li>
+                  <a href="#"
+                     data-status-key="{{ key }}"
+                     data-book-id="{{ ../_id }}">
+                    {{ caption }}
+                  </a>
+                </li>
+              {{/each}}
+            </ul>
+          </div>
+          {{/if}}
+        </td>
+        <td class="text-center">
+          {{#if taken_by}}
+            {{#if $neq taken_by currUser.id}}
+              {{#with userById taken_by }}
+                Taken by <b>{{ name }}</b> <br />
+              {{/with}}
 
-  {{#each books}}
-  <tr>
+              {{#if isUserSubscribedToBook currUser.id }}
+                <div class="btn btn-primary mrt__nofify-me">Notify when returned</div>
+              {{else}}
+                <div class="btn btn-primary mrt__nofify-me">Notify when returned</div>
+              {{/if}}
 
-    <td>{{ name }}</td>
-    <td class="text-center">{{ author}}</td>
-    <td class="text-center">CATEGORY</td>
-    {{#if currUser.isAdmin}}
-      <td class="text-center"> 
-              <div class="btn-group text-left">
-                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                  {{ currentBookStatus status}}<span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu dropdown-menu-right mrt__status-change" role="menu">
-                  {{#each bookStatuses}}
-                    <li>
-                      <a href="#"
-                         data-status-key="{{ key }}"
-                         data-book-id="{{ ../_id }}">
-                        {{ caption }}
-                      </a>
-                    </li>
-                  {{/each}}
-                </ul>
-              </div>
-      </td>
-    {{/if}}
-    <td class="text-center">
-      <div class="btn btn-primary mrt__nofify-me">Notify me</div>
-    </td>
-  </tr>
-  {{/each}}
-        <tr>
-          <td>How to becime a pornstar</td>
-          <td class="text-center">Ruslan Savenok</td>
-          <td class="text-center">Self developemnt</td>
-          <td class="text-center">
-            {{#if currUser.isAdmin}}
-              <div class="btn-group text-left">
-                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                  Status <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu dropdown-menu-right mrt__status-change" role="menu">
-                  {{#each bookStatuses}}
-                    <li>
-                      <a href="#"
-                         data-status-key="{{ key }}"
-                         data-book-id="fuckme">
-                        {{ caption }}
-                      </a>
-                    </li>
-                  {{/each}}
-                </ul>
-              </div>
             {{/if}}
-          </td>
-          <td>
 
-          </td>
-        </tr>
+            {{#if $eq taken_by currUser.id}}
+              <div class="btn btn-warning mrt__return-book">Return book</div>
+            {{/if}}
+          {{else}}
+            <div class="btn btn-default mrt__take-book">Take Book</div>
+          {{/if}}
+        </td>
+      </tr>
+      {{/each}}
       </tbody>
     </table>
   </div>

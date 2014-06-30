@@ -13,32 +13,38 @@ Meteor.startup(function () {
 		clientId: "471584135384-574afafjms570m3v6t1sekijh1lptral.apps.googleusercontent.com",
 		secret: "W9napBOnGFb9FcPz2Tud6fqE"
   });
-	if (Books.find().count() == 0) {
+
+
+	Books.remove({});
+
 	Books.insert({
 		name: "Python rulez!",
 		author: "Anonymous",
 		url: "http://www.amazon.com/",
-		status: 'taken'
+		status: 'in_library',
+		created_at: new Date().getTime()
 	});
 	Books.insert({
 		name: "Javascript  unleashed!",
 		author: "Anonymous",
 		url: "http://www.amazon.com/",
-		status: 'taken'
+		status: 'in_library',
+		created_at: new Date().getTime()
 	});
 	Books.insert({
 		name: "Nodejs secret",
 		author: "Anonymous",
 		url: "http://www.amazon.com/",
-		status: 'taken'
+		status: 'in_library',
+		created_at: new Date().getTime()
 	});
 	Books.insert({
 		name: "Mastering CSS",
 		author: "Anonymous",
 		url: "http://www.amazon.com/",
-		status: 'taken'
+		status: 'in_library',
+		created_at: new Date().getTime()
 	});
-	}
 });
 //
 // turn it off cause autopublishing is on

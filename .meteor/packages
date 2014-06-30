@@ -14,3 +14,4 @@ accounts-ui
 iron-router-active
 bootstrap-3
 email
+handlebar-helpers

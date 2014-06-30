@@ -32,8 +32,8 @@ BookStatuses = [
 ];
 
 
-Meteor.getUser = function () {
-  var user = Meteor.user();
+Meteor.getUser = function (user) {
+  user = user || Meteor.user();
   if (!user) return null;
 
   return {
@@ -53,6 +53,7 @@ Handlebars.registerHelper('bookStatuses', function () {
   return BookStatuses;
 })
 
+
 Handlebars.registerHelper('currentBookStatus', function(key){
 	for (var i =0; i< BookStatuses.length; i++) {
 		if (BookStatuses[i].key === key) {
@@ -64,12 +65,23 @@ Handlebars.registerHelper('currentBookStatus', function(key){
 });
 
 Handlebars.registerHelper('compareStatuses', function(key1, key2){
-	if (key1 === key2) 
+	if (key1 === key2)
 		return true;
-	else 
+	else
 		return false;
 });
 
+Handlebars.registerHelper('userById', function (id) {
+  return Meteor.getUser(Meteor.users.findOne({_id: id}));
+});
+
+Handlebars.registerHelper('isUserSubscribedToBook'. function (id) {
+  return Books.findOne({
+    subscribers: {
+      $in: [id]
+    }
+  });
+});
 
 /*
 function recurseTree(tree, newKey, newId) {
