@@ -32,9 +32,10 @@ BookStatuses = [
 ];
 
 
+
 Meteor.getUser = function (user) {
-  user = user || Meteor.user();
-  if (!user) return null;
+  user = findUserById(user) || Meteor.user();
+  if (_.isUndefined(user)) return null;
 
   return {
     id: user._id,
@@ -43,6 +44,10 @@ Meteor.getUser = function (user) {
     image: user.services.google.picture,
     isAdmin: (_.indexOf(['ruslan.savenok@10clouds.com','grzegorz.slusarek@10clouds.com'], user.services.google.email) != -1)
   }
+}
+
+function findUserById(id) {
+  return Meteor.users.findOne({_id: id});
 }
 
 Handlebars.registerHelper('currUser', function () {
@@ -72,7 +77,7 @@ Handlebars.registerHelper('compareStatuses', function(key1, key2){
 });
 
 Handlebars.registerHelper('userById', function (id) {
-  return Meteor.getUser(Meteor.users.findOne({_id: id}));
+  return findUserById(id);
 });
 
 Handlebars.registerHelper('isUserSubscribedToBook', function (id) {

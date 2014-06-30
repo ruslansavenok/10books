@@ -14,7 +14,6 @@ Meteor.startup(function () {
 		secret: "W9napBOnGFb9FcPz2Tud6fqE"
   });
 
-
 	Books.remove({});
 
 	Books.insert({
@@ -22,28 +21,32 @@ Meteor.startup(function () {
 		author: "Anonymous",
 		url: "http://www.amazon.com/",
 		status: 'in_library',
-		created_at: new Date().getTime()
+		created_at: new Date().getTime(),
+		subscribers: []
 	});
 	Books.insert({
 		name: "Javascript  unleashed!",
 		author: "Anonymous",
 		url: "http://www.amazon.com/",
 		status: 'in_library',
-		created_at: new Date().getTime()
+		created_at: new Date().getTime(),
+		subscribers: []
 	});
 	Books.insert({
 		name: "Nodejs secret",
 		author: "Anonymous",
 		url: "http://www.amazon.com/",
 		status: 'in_library',
-		created_at: new Date().getTime()
+		created_at: new Date().getTime(),
+		subscribers: []
 	});
 	Books.insert({
 		name: "Mastering CSS",
 		author: "Anonymous",
 		url: "http://www.amazon.com/",
 		status: 'in_library',
-		created_at: new Date().getTime()
+		created_at: new Date().getTime(),
+		subscribers: []
 	});
 });
 //

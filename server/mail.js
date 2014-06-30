@@ -8,12 +8,16 @@ Meteor.startup(function () {
 });
 
 Meteor.methods({
-  sendMail: function (to, subject, text) {
+  sendMail: function (userId, subject, text) {
+    var to = Meteor.users.findOne({_id: userId}).services.google.email;
+
     this.unblock();
+
+    console.log('sending to', to, userId, text);
 
     Email.send({
       to: to,
-      from: 'no-reply@your-mamma-is-fat.com',
+      from: '10Books-noreply@your-mamma-is-fat.com',
       subject: subject,
       text: text
     });
