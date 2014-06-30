@@ -6,7 +6,9 @@
       "iron-router-active": {},
       "bootstrap-3": {},
       "handlebar-helpers": {},
-      "cron": {}
+      "cron": {},
+      "easy-search": {},
+      "moment": {}
     },
     "packages": {
       "iron-router": {
@@ -21,8 +23,8 @@
       },
       "bootstrap-3": {
         "git": "https://github.com/mangasocial/meteor-bootstrap-3.git",
-        "tag": "v3.1.1-1",
-        "commit": "63dd38968828bb8963636df93e9a1c45e2dfe67e"
+        "tag": "v3.2.0-1",
+        "commit": "17a63902fc6cf1096c5289d963c66cf28b474727"
       },
       "handlebar-helpers": {
         "git": "https://github.com/raix/Meteor-handlebar-helpers.git",
@@ -33,6 +35,16 @@
         "git": "https://github.com/alexsuslov/Meteor.cron.git",
         "tag": "v0.0.1",
         "commit": "5216d14472fee7b692e8371aadc9f35f54ba9bb0"
+      },
+      "easy-search": {
+        "git": "https://github.com/matteodem/meteor-easy-search.git",
+        "tag": "v0.4.55",
+        "commit": "2c2a4d2d9a905530dd6f076b585bafbd0c40e5ca"
+      },
+      "moment": {
+        "git": "https://github.com/acreeger/meteor-moment.git",
+        "tag": "v2.6.0",
+        "commit": "26156df681750fd6e6ed77043eef32b6653ebbdf"
       },
       "blaze-layout": {
         "git": "https://github.com/EventedMind/blaze-layout.git",

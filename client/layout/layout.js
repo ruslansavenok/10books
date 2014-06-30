@@ -1,18 +1,47 @@
-Books = new Meteor.Collection('books');
+$(document).on('click', function (e) {
+  var $target = $(e.target);
+  var isTargetButton          = $target.is('.dropdown-toggle');
+  var isTargetChildOfButton   = $target.parents('.dropdown-toggle').length;
+  var isTargetDropdown        = $target.is('.dropdown-menu');
+  var isTargetChildOfDropdown = $target.parents('.dropdown-menu').length;
 
-var filtered = null;
+  if (!isTargetButton && !isTargetChildOfButton && !isTargetDropdown && !isTargetChildOfDropdown) {
+    $('.dropdown-menu').parent().removeClass('open');
+  }
+});
 
 Template.layout.events({
-  'keyup .mrt__perform-search': function (e) {
-    var query = $(e.target).val();
+  'click .mrt__filter-dropdown-toggle': function (e) {
+    var $btn = $(e.target);
+    var $dpd = $btn.next();
 
-    if (!$.trim(query).length) {
-      return;
-    }
-
-    console.log('set');
-    Session.set('query', query);
+    $dpd.parent().toggleClass('open');
   },
+
+
+  'change .mrt__filter-dropdown-form input': function (e) {
+    var $form = $(e.target).parents('form');
+    var filter = $form.serializeObject().filter;
+
+    Session.set('status_filter', filter);
+  },
+
+  'change .categories-select': function (e) {
+    var newCategory = $(e.target).val();
+    var bookId = getBookIdFromParentRow(e.target);
+
+    Books.update({_id: bookId}, {
+      $set: {
+        category: newCategory
+      }
+    });
+  },
+
+
+  'keyup .mrt__perform-search': function (e) {
+    Session.set('query', $(e.target).val());
+  },
+
 
   'click .mrt-layout__logout': function (e) {
     e.preventDefault();
@@ -20,6 +49,17 @@ Template.layout.events({
     Meteor.logout(function () {
       Router.go('home');
     });
+  },
+
+
+  'click .mrt__remove-book': function (e) {
+    e.preventDefault();
+
+    if (!confirm('Are you sure?')) return;
+
+    var id = getBookIdFromParentRow(e.target);
+
+    Books.remove({_id: id});
   },
 
 
@@ -94,6 +134,8 @@ Template.layout.events({
       }
     });
   },
+
+
   'click .mrt__return-book': function (e) {
     var bookId = getBookIdFromParentRow(e.target);
 
@@ -118,6 +160,7 @@ Template.layout.events({
       name: formData.title,
       author: formData.author,
       url: formData.url,
+      category: formData.category,
       requested_by: Meteor.user()._id,
       status: 'requested',
       created_at: new Date().getTime()
@@ -128,34 +171,15 @@ Template.layout.events({
 });
 
 
-Template.layout.books = function() {
-  var q = Session.get('query');
 
 
-  var query = {};
-
-  if (q) {
-    var reg = new RegExp(q, "i");
-    query.name = reg;
-    query.author = reg;
-  }
-
-	var b = Books.find(query, {
-    sort: {created_at: -1}
-  });
-
-  console.log('reg', query, b.fetch());
-
-  return b;
-}
 
 function getBookIdFromParentRow(target) {
   return $(target).parents('.book-row').data('book-id');
 }
 
-function notifySubscribers(bookId) {
-  console.log('notify niggas');
 
+function notifySubscribers(bookId) {
   var book = Books.findOne({_id: bookId});
   var takenByUser = Meteor.getUser(book.taken_by);
   var emailText = 'Book "' + book.name + '" was returned by ' + takenByUser.name + ' and now available';

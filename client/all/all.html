@@ -1,3 +1,67 @@
 <template name="all">
-all
+
+  <div class="search-field-container">
+    <div class="input-group">
+      <input type="text"
+              placeholder="Type book name, author or category"
+              class="form-control search-field mrt__perform-search" />
+      <div class="glyphicon glyphicon-search"></div>
+      <div class="input-group-btn">
+        <button class="btn btn-default dropdown-toggle mrt__filter-dropdown-toggle" type="button">Filter <span class="caret"></span></button>
+        <ul class="dropdown-menu dropdown-menu-right">
+          <form class="mrt__filter-dropdown-form">
+            {{#each bookStatuses}}
+            <li class="filter-dropdown">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox"
+                         name="filter"
+                         value="{{ key }}"
+                         checked="">
+                  {{ caption }}
+                </label>
+              </div>
+            </li>
+            {{/each}}
+          </form>
+        </ul>
+      </div><!-- /btn-group -->
+    </div>
+  </div>
+
+
+  {{#if books}}
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th class="text-center">Author</th>
+        <th class="text-center">Category</th>
+        <th class="text-center">Requested by</th>
+        <th class="text-center">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+    {{#each books}}
+    <tr class="book-row" data-book-id="{{ _id }}">
+      <td>{{ name }}</td>
+      <td class="text-center">{{ author}}</td>
+      <td class="text-center">
+        {{> categories_select }}
+      </td>
+      <td class="text-center">
+        {{#with userById requested_by}}
+          {{name}}
+        {{/with}}
+      </td>
+      <td class="text-center cell__actions">
+        {{> book_statuses}}
+      </td>
+    </tr>
+    {{/each}}
+    </tbody>
+  </table>
+  {{/if}}
+
+
 </template>

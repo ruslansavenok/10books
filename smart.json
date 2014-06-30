@@ -4,6 +4,8 @@
     "iron-router-active": {},
     "bootstrap-3": {},
     "handlebar-helpers": {},
-    "cron": {}
+    "cron": {},
+    "easy-search": {},
+    "moment": {}
   }
 }

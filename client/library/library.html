@@ -1,5 +1,52 @@
 <template name="library">
-  Library
 
-  {{ currUser.email }}
+  {{> search_box }}
+
+  {{#if books}}
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th class="text-center">Author</th>
+        <th class="text-center">Category</th>
+        <th class="text-center">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+    {{#each books}}
+    <tr class="book-row" data-book-id="{{ _id }}">
+      <td>{{ name }}</td>
+      <td class="text-center">{{ author}}</td>
+      <td class="text-center">
+        {{> categories_select}}
+      </td>
+      <td class="text-center cell__actions">
+        {{#if taken_by}}
+          {{#if $neq taken_by currUser.id}}
+            {{#with userById taken_by }}
+              Taken by <b>{{ name }}</b> <br />
+            {{/with}}
+
+            <div class="notify-btns">
+            {{#if isUserSubscribedToBook _id currUser.id }}
+              <div class="btn btn-danger mrt__unnofify-me">Cancel Notification</div>
+            {{else}}
+              <div class="btn btn-primary mrt__nofify-me">Notify when returned</div>
+            {{/if}}
+            </div>
+          {{/if}}
+
+          {{#if $eq taken_by currUser.id}}
+            <div class="btn btn-warning mrt__return-book">Return book</div>
+          {{/if}}
+        {{else}}
+           <div class="btn btn-default mrt__take-book">Take Book</div>
+        {{/if}}
+      </td>
+    </tr>
+    {{/each}}
+    </tbody>
+  </table>
+  {{/if}}
+
 </template>

@@ -3,7 +3,7 @@ Template.home.events({
     Meteor.loginWithGoogle({
       requestPermissions: ['profile', 'email']
     }, function () {
-      var user = getUserProfile();
+      //var user = Meteor.getProfile();
 
       /*
       if (user.email.indexOf('10clouds.com') == -1) {

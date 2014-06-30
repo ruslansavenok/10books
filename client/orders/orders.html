@@ -1,3 +1,66 @@
 <template name="orders">
-	orders.html
+
+  <div class="clearfix">
+    <div class="search-box_left">
+      {{> search_box }}
+    </div>
+
+    <div class="pull-right">
+      <div class="btn btn-success mrt__order-book"
+           data-toggle="modal"
+           data-target="#add-order-modal">
+        <i class="glyphicon glyphicon-plus"></i>
+        Oder Book
+      </div>
+    </div>
+  </div>
+
+
+  {{#if books}}
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th class="text-center">Author</th>
+        <th class="text-center">Category</th>
+        <th class="text-center">Requested by</th>
+        <th class="text-center">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+    {{#each books}}
+    <tr class="book-row" data-book-id="{{ _id }}">
+      <td>{{ name }}</td>
+      <td class="text-center">{{ author}}</td>
+      <td class="text-center">
+        {{> categories_select }}
+      </td>
+      <td class="text-center">
+        {{#with userById requested_by}}
+          {{name}}
+        {{/with}}
+      </td>
+      <td class="text-center cell__actions">
+        {{#if currUser.isAdmin}}
+          {{> book_statuses}}
+        {{else}}
+          {{#if canRemove _id }}
+          <div class="btn btn-danger mrt__remove-book">
+            <i class="glyphicon glyphicon-trash"></i>
+          </div>
+          {{else}}
+            {{#if $neq status 'requested'}}
+              {{status}}
+            {{else}}
+              in review
+            {{/if}}
+          {{/if}}
+        {{/if}}
+      </td>
+    </tr>
+    {{/each}}
+    </tbody>
+  </table>
+  {{/if}}
+
 </template>

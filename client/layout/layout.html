@@ -1,41 +1,5 @@
 <template name="layout">
-  <div id="add-order-modal" class="modal fade">
-    <div class="modal-dialog">
-      <form class="modal-content add-order-form mrt__add-order-form">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-          <h4 class="modal-title">Add Order</h4>
-        </div>
-        <div class="modal-body">
-          <div class="form-group">
-            <input type="text"
-                   class="form-control"
-                   name="title"
-                   placeholder="Title"
-                   required />
-          </div>
-          <div class="form-group">
-            <input type="text"
-                   class="form-control"
-                   name="author"
-                   placeholder="Author"
-                   required />
-          </div>
-          <div class="form-group">
-            <input type="url"
-                   class="form-control"
-                   name="url"
-                   placeholder="Book url"
-                   required />
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-success">Add order</button>
-        </div>
-      </form><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-  </div> <!-- #add-order-modal -->
+  {{> order_modal}}
 
 	<nav class="navbar navbar-default navbar-static-top" role="navigation">
     <div class="container-fluid">
@@ -47,7 +11,9 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="/">10Books</a>
+        <a class="navbar-brand" href="/">
+          <b><i class="glyphicon glyphicon-book"></i> 10Books</b>
+        </a>
       </div>
 
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -77,87 +43,11 @@
 
 
   <div class="container-fluid">
-
-   <input type="text" placeholder="Type book name, author or category" class="mrt__perform-search" />
-
-
-    <div class="clearfix">
-      <div class="pull-right">
-        <div class="btn btn-success mrt__order-book"
-             data-toggle="modal"
-             data-target="#add-order-modal">
-          Oder Book
-        </div>
-      </div>
-    </div>
+   {{> yield}}
+  </div> <!-- .container-fluid -->
 
 
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th class="text-center">Author</th>
-          <th class="text-center">Category</th>
-          <th class="text-center">Status</th>
-          <th class="text-center">Debug shit</th>
-        </tr>
-      </thead>
-      <tbody>
-      {{#each books}}
-      <tr class="book-row" data-book-id="{{ _id }}">
-        <td>{{ name }}</td>
-        <td class="text-center">{{ author}}</td>
-        <td class="text-center">CATEGORY</td>
-        <td class="text-center">
-          {{#if currUser.isAdmin}}
-          <div class="btn-group text-left">
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-              {{ currentBookStatus status}}<span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu dropdown-menu-right mrt__status-change" role="menu">
-              {{#each bookStatuses}}
-                <li>
-                  <a href="#"
-                     data-status-key="{{ key }}"
-                     data-book-id="{{ ../_id }}">
-                    {{ caption }}
-                  </a>
-                </li>
-              {{/each}}
-            </ul>
-          </div>
-          {{/if}}
-        </td>
-        <td class="text-center">
-          {{#if taken_by}}
-            {{#if $neq taken_by currUser.id}}
-              {{#with userById taken_by }}
-                Taken by <b>{{ name }}</b> <br />
-              {{/with}}
-
-              {{#if isUserSubscribedToBook currUser.id }}
-                <div class="btn btn-danger mrt__unnofify-me">Cancel Notification</div>
-              {{else}}
-                <div class="btn btn-primary mrt__nofify-me">Notify when returned</div>
-              {{/if}}
-
-            {{/if}}
-
-            {{#if $eq taken_by currUser.id}}
-              <div class="btn btn-warning mrt__return-book">Return book</div>
-            {{/if}}
-          {{else}}
-            <div class="btn btn-default mrt__take-book">Take Book</div>
-          {{/if}}
-        </td>
-      </tr>
-      {{/each}}
-      </tbody>
-    </table>
-  </div>
-
-
-
+  <!--
   <div>
     user id bro - {{ currUser.id }}
   </div>
@@ -196,16 +86,18 @@
     </form>
     <hr />
 	</div>
-</template>
 
+  -->
+  <!--
+    <div class="clearfix">
+      <div class="pull-right">
+        <div class="btn btn-success mrt__order-book"
+             data-toggle="modal"
+             data-target="#add-order-modal">
+          Oder Book
+        </div>
+      </div>
+    </div>
+  -->
 
-<template name="category_option">
-  <li>
-    {{ name }}
-    <ul>
-      {{#each children}}
-        {{> category_option}}
-      {{/each}}
-    </ul>
-  </li>
 </template>

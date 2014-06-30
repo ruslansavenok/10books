@@ -1,4 +1,7 @@
+Books = new Meteor.Collection("books");
 Categories = new Meteor.Collection('categories');
+
+
 
 BookStatuses = [
   {
@@ -32,12 +35,57 @@ BookStatuses = [
 ];
 
 
+Categories = [
+  'Design & UX',
+  'Computer Security',
+  'Business & Management',
+  'Software Developement',
+  'Web Developement',
+  'Mobile Developement',
+  'Databases',
+  'Computer Graphics'
+];
 
+
+Meteor.filterBooks = function (statusesArray) {
+  var query = Session.get('query');
+  var filter = {};
+
+  if (statusesArray) {
+    filter.status = {$in: statusesArray}
+  }
+
+  console.log(filter)
+
+  var books = Books.find(filter, {
+    sort: {created_at: -1}
+  });
+
+  if (query && query != "") {
+    var filtered = [];
+
+    books.forEach(function (book) {
+      if (book.name.toLowerCase().indexOf(query) != -1 ||
+          book.author.toLowerCase().indexOf(query) != -1) {
+        filtered.push(book);
+      }
+    });
+
+    return filtered;
+  } else {
+    return books;
+  }
+}
 
 
 Meteor.getUser = function (user) {
-  user = findUserById(user) || Meteor.user();
-  if (_.isUndefined(user)) return null;
+  if (!user) {
+    user = Meteor.user();
+  } else {
+    user = findUserById(user);
+  }
+
+  if (_.isUndefined(user) || !user) return null;
 
   return {
     id: user._id,
@@ -52,13 +100,20 @@ function findUserById(id) {
   return Meteor.users.findOne({_id: id});
 }
 
+
 Handlebars.registerHelper('currUser', function () {
   return Meteor.getUser();
 });
 
+
 Handlebars.registerHelper('bookStatuses', function () {
   return BookStatuses;
 })
+
+
+Handlebars.registerHelper('categories', function (active) {
+  return Categories;
+});
 
 
 Handlebars.registerHelper('currentBookStatus', function(key){
@@ -68,8 +123,8 @@ Handlebars.registerHelper('currentBookStatus', function(key){
 		}
 	}
 	return null;
-
 });
+
 
 Handlebars.registerHelper('compareStatuses', function(key1, key2){
 	if (key1 === key2)
@@ -78,65 +133,37 @@ Handlebars.registerHelper('compareStatuses', function(key1, key2){
 		return false;
 });
 
-Handlebars.registerHelper('userById', function (id) {
-  return findUserById(id);
+Meteor.startup(function () {
+  Handlebars.registerHelper('canRemove', function(bookId) {
+    var book = Books.find({_id: bookId}).fetch()[0];
+    var currUser = Meteor.getUser();
+
+    if (!currUser || !book) return false;
+
+
+    return Meteor.user()._id == book.requested_by && book.status == 'requested';
+  });
 });
 
-Handlebars.registerHelper('isUserSubscribedToBook', function (id) {
+
+
+Handlebars.registerHelper('userById', function (id) {
+  return Meteor.getUser(id);
+});
+
+
+Handlebars.registerHelper('isUserSubscribedToBook', function (bookId, id) {
   return Books.findOne({
+    _id: bookId,
     subscribers: {
       $in: [id]
     }
   });
 });
 
-/*
-function recurseTree(tree, newKey, newId) {
-    if(_isEmpty(tree)) {
-        tree[newKey] = {_id: newId};
-        return;
-    }
 
-    var child = null; // find current tree's child
-    for(var key in tree) {
-        if (key != '_id') {
-            child = tree[key]; // found a child
-            break;
-        }
-    }
-    if (child) { // recursively process on child
-        recurseTree(child, newKey, newId);
-    } else { // no child, so just fill the tree
-        tree[newKey] = {_id: newId};
-    }
-}*/
-/*
-Handlebars.registerHelper('categories', function () {
-  var categories = Categories.find();
+Handlebars.registerHelper('option', function (name, active, options) {
+  var str = '<option value="' + name + '"'+ (name == active ? ' selected' : '') + '>' + name + '</option>';
 
-
-  function build(parentId, array) {
-    array = array || [];
-
-    _.each(categories, function (category) {
-      if (category.parent_id == parentId) {
-        array.push(category);
-        category.children = category.children || [];
-        build(category._id, category.children);
-      }
-    });
-
-    return array;
-  }
-
-  return build(-1, categories);
+  return new Handlebars.SafeString(str);
 });
-
-Handlebars.registerHelper('times', function (n, block) {
-  var accum = '';
-  for(var i = 0; i < n; ++i) {
-    accum += block.fn(i);
-  }
-  return accum;
-});
-*/
