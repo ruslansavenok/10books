@@ -32,7 +32,7 @@ BookStatuses = [
 ];
 
 
-Handlebars.registerHelper('currUser', function () {
+Meteor.getUser = function () {
   var user = Meteor.user();
   if (!user) return null;
 
@@ -43,6 +43,10 @@ Handlebars.registerHelper('currUser', function () {
     image: user.services.google.picture,
     isAdmin: (_.indexOf(['ruslan.savenok@10clouds.com','grzegorz.slusarek@10clouds.com'], user.services.google.email) != -1)
   }
+}
+
+Handlebars.registerHelper('currUser', function () {
+  return Meteor.getUser();
 });
 
 Handlebars.registerHelper('bookStatuses', function () {
