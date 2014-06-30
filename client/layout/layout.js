@@ -8,6 +8,8 @@ Template.layout.events({
       Router.go('home');
     });
   },
+
+
   'submit .mrt_categories-form': function (e) {
     e.preventDefault();
 
@@ -20,6 +22,8 @@ Template.layout.events({
       parent_id: categoryParentId
     });
   },
+
+
   'click .mrt__status-change': function (e) {
     e.preventDefault();
 
@@ -38,6 +42,19 @@ Template.layout.events({
     }
 
     // book.status = status
+  },
+
+
+  'click .mrt__nofify-me': function (e) {
+    console.log('fuc');
+
+    var $btn = $(e.target);
+    var bookId = $btn.data('book-id');
+    var user = Meteor.getUser();
+
+    var emailText = 'Book {{ name }} was returned by {{ uname }} and now available';
+
+    Meteor.call('sendMail', user.email, '10Books: Book Available', emailText);
   }
 });
 
