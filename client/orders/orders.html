@@ -16,7 +16,8 @@
   </div>
 
 
-  {{#if books}}
+  {{#if books }}
+  {{ books }}
   <table class="table table-striped">
     <thead>
       <tr>
@@ -30,7 +31,7 @@
     <tbody>
     {{#each books}}
     <tr class="book-row" data-book-id="{{ _id }}">
-      <td>{{ name }}</td>
+      <td><a href="{{url}}" target="_blank">{{ name }}</a></td>
       <td class="text-center">{{ author}}</td>
       <td class="text-center">
         {{> categories_select }}

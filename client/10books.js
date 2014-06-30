@@ -1,7 +1,8 @@
 Books = new Meteor.Collection("books");
 Categories = new Meteor.Collection('categories');
 
-
+Session.set('query', null); // this should be setted per page
+Session.set('status_filter', null);
 
 BookStatuses = [
   {
@@ -55,8 +56,6 @@ Meteor.filterBooks = function (statusesArray) {
     filter.status = {$in: statusesArray}
   }
 
-  console.log(filter)
-
   var books = Books.find(filter, {
     sort: {created_at: -1}
   });
@@ -71,9 +70,9 @@ Meteor.filterBooks = function (statusesArray) {
       }
     });
 
-    return filtered;
+    if (filtered.length) return filtered;
   } else {
-    return books;
+    if (books.count()) return books;
   }
 }
 

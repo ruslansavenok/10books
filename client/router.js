@@ -7,7 +7,7 @@ Router.configure({
 Router.configure({
   onBeforeAction: function () {
     Session.set('query', null); // this should be setted per page
-    Session.set('status_filter', []);
+    Session.set('status_filter', null);
   }
 })
 

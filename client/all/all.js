@@ -1,9 +1,10 @@
 Template.all.books = function (argument) {
   var statusFilter = Session.get('status_filter');
 
-  console.log('statusFilter', statusFilter);
+  if (_.isString(statusFilter)) statusFilter = [statusFilter];
+  if (_.isUndefined(statusFilter)) statusFilter = [];
 
-  if (statusFilter && statusFilter.length) {
+  if (statusFilter) {
     return Meteor.filterBooks(statusFilter);
   } else {
     return Meteor.filterBooks();

@@ -1,0 +1,27 @@
+<template name="book_statuses">
+  <div class="btn-group text-left">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+      {{ currentBookStatus status}} <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu dropdown-menu-right" role="menu">
+      {{#each bookStatuses}}
+        <li>
+          <a href="#"
+             class="mrt__status-change"
+             data-status-key="{{ key }}"
+             data-book-id="{{ ../_id }}">
+            {{ caption }}
+          </a>
+        </li>
+      {{/each}}
+      <li role="presentation" class="divider"></li>
+      <li>
+        <a href="#"
+           class="mrt__remove-book"
+           data-book-id="{{ ../_id }}">
+          Remove
+        </a>
+      </li>
+    </ul>
+  </div>
+</template>

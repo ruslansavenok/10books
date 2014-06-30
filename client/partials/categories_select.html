@@ -1,0 +1,8 @@
+<template name="categories_select">
+  <select name="category" class="categories-select form-control" required>
+    <option value="">--select category--</option>
+    {{#each categories}}
+      {{option this ../category }}
+    {{/each}}
+  </select>
+</template>
