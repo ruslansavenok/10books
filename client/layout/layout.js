@@ -167,6 +167,7 @@ Template.layout.events({
     });
 
     $('#add-order-modal').modal('hide');
+    $form[0].reset();
   }
 });
 
