@@ -17,5 +17,24 @@ Template.layout.events({
       name: categoryName,
       parent_id: categoryParentId
     });
+  },
+  'click .mrt__status-change': function (e) {
+    e.preventDefault();
+
+    var $target = $(e.target);
+    var bookId = $target.data('book-id');
+    var status = $target.data('status-key');
+
+    // var book = Book.find({_id: bookId})
+
+    if (status == 'taken') {
+      // book.taken_by = Meteor.user()._id
+    }
+
+    if (status == 'requested') {
+      // if (!book.request_by) book.requested_by = Meteor.user()._id
+    }
+
+    // book.status = status
   }
 });

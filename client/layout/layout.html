@@ -38,6 +38,46 @@
 
 
 
+  <div class="container-fluid">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th class="text-center">Author</th>
+          <th class="text-center">Category</th>
+          <th class="text-center">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>How to becime a pornstar</td>
+          <td class="text-center">Ruslan Savenok</td>
+          <td class="text-center">Self developemnt</td>
+          <td class="text-center">
+            {{#if currUser.isAdmin}}
+              <div class="btn-group text-left">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                  Status <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-right mrt__status-change" role="menu">
+                  {{#each bookStatuses}}
+                    <li>
+                      <a href="#"
+                         data-status-key="{{ key }}"
+                         data-book-id="fuckme">
+                        {{ caption }}
+                      </a>
+                    </li>
+                  {{/each}}
+                </ul>
+              </div>
+            {{/if}}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
 
 
   <div>

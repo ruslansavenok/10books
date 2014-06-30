@@ -2,13 +2,34 @@ Books = new Meteor.Collection('books');
 Categories = new Meteor.Collection('categories');
 
 BookStatuses = [
-  'taken',        // taken by user
-  'in_library',   // in library, meaning that nobody took it yet
-  'requested',    // added to order list
-  'accepted',     // accepted by M&M
-  'ordered',      // ordered
-  'rejected',     // reject by M&M
-  'lost',         // book was lost
+  {
+    key: 'taken',
+    caption: 'Taken'
+  },
+  {
+    key: 'in_library',
+    caption: 'In Library'
+  },
+  {
+    key: 'requested',
+    caption: 'In Orders'
+  },
+  {
+    key: 'accepted',
+    caption: 'Accepted'
+  },
+  {
+    key: 'ordered',
+    caption: 'Ordered'
+  },
+  {
+    key: 'rejected',
+    caption: 'Rejected'
+  },
+  {
+    key: 'lost',
+    caption: 'Lost'
+  }
 ];
 
 
@@ -28,6 +49,8 @@ Handlebars.registerHelper('currUser', function () {
 Handlebars.registerHelper('bookStatuses', function () {
   return BookStatuses;
 })
+
+
 
 /*
 function recurseTree(tree, newKey, newId) {
