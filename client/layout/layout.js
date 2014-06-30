@@ -1,3 +1,5 @@
+Books = new Meteor.Collection('books');
+
 Template.layout.events({
   'click .mrt-layout__logout': function (e) {
     e.preventDefault();
@@ -38,3 +40,8 @@ Template.layout.events({
     // book.status = status
   }
 });
+
+Template.layout.books = function(){
+	return Books.find();
+}
+

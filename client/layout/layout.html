@@ -49,6 +49,15 @@
         </tr>
       </thead>
       <tbody>
+
+  {{#each books}}
+  <tr>
+    <td>{{ name }}</td>
+    <td class="text-center">{{ author}}</td>
+    <td class="text-center">CATEGORY</td>
+    <td class="text-center"> {{status}}</td>
+  </tr>
+   {{/each}}
         <tr>
           <td>How to becime a pornstar</td>
           <td class="text-center">Ruslan Savenok</td>

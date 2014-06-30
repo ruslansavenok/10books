@@ -1,4 +1,3 @@
-Books = new Meteor.Collection('books');
 Categories = new Meteor.Collection('categories');
 
 BookStatuses = [
@@ -42,7 +41,7 @@ Handlebars.registerHelper('currUser', function () {
     name: user.profile.name,
     email: user.services.google.email,
     image: user.services.google.picture,
-    isAdmin: (_.indexOf(['ruslan.savenok@10clouds.com'], user.services.google.email) != -1)
+    isAdmin: (_.indexOf(['ruslan.savenok@10clouds.com','grzegorz.slusarek@10clouds.com'], user.services.google.email) != -1)
   }
 });
 
