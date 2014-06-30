@@ -55,10 +55,30 @@ Template.layout.events({
     var emailText = 'Book {{ name }} was returned by {{ uname }} and now available';
 
     Meteor.call('sendMail', user.email, '10Books: Book Available', emailText);
+  },
+
+  'submit .mrt__add-order-form': function (e) {
+    e.preventDefault();
+
+    var $form = $(e.target);
+    var formData = $form.serializeObject();
+
+    Books.insert({
+      name: formData.title,
+      author: formData.author,
+      url: formData.url,
+      requested_by: Meteor.user()._id,
+      status: 'requested',
+      created_at: new Date().getTime()
+    });
+
+    $('#add-order-modal').modal('hide');
   }
 });
 
 Template.layout.books = function(){
-	return Books.find();
+	return Books.find({}, {
+    sort: {created_at: -1}
+  });
 }
 
