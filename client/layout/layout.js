@@ -29,19 +29,34 @@ Template.layout.events({
 
     var $target = $(e.target);
     var bookId = $target.data('book-id');
-    var status = $target.data('status-key');
+    var newStatus = $target.data('status-key');
+    var book = Books.find({_id: bookId});
 
-    // var book = Book.find({_id: bookId})
+	var update_dict = {
+		status : newStatus
+	}
+    if (newStatus == 'taken') {
+		book.taken_by = Meteor.user()._id;
+		book.taken_date = new Date().getTime();
 
-    if (status == 'taken') {
-      // book.taken_by = Meteor.user()._id
+		update_dict = _.extend(update_dict, {
+			taken_by: book.taken_by,
+			taken_date: book.taken_date
+		});
     }
+	//checking previous status
+	if(book.status == 'taken' && newStatus != 'taken') {
+		book.taken_by = null;
+		book.taken_date = null;
 
-    if (status == 'requested') {
-      // if (!book.request_by) book.requested_by = Meteor.user()._id
-    }
+		update_dict = _.extend(update_dict, {
+			taken_by: book.taken_by,
+			taken_date: book.taken_date
+		});
+	}
 
-    // book.status = status
+
+    Books.update(this._id, {$set: update_dict});
   },
 
 
