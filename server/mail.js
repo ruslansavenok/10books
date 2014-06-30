@@ -9,6 +9,8 @@ Meteor.startup(function () {
 
 Meteor.methods({
   sendMail: function (to, subject, text) {
+    this.unblock();
+
     Email.send({
       to: to,
       from: 'no-reply@your-mamma-is-fat.com',
