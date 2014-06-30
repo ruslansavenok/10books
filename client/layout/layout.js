@@ -1,6 +1,19 @@
 Books = new Meteor.Collection('books');
 
+var filtered = null;
+
 Template.layout.events({
+  'keyup .mrt__perform-search': function (e) {
+    var query = $(e.target).val();
+
+    if (!$.trim(query).length) {
+      return;
+    }
+
+    console.log('set');
+    Session.set('query', query);
+  },
+
   'click .mrt-layout__logout': function (e) {
     e.preventDefault();
 
@@ -114,10 +127,26 @@ Template.layout.events({
   }
 });
 
-Template.layout.books = function(){
-	return Books.find({}, {
+
+Template.layout.books = function() {
+  var q = Session.get('query');
+
+
+  var query = {};
+
+  if (q) {
+    var reg = new RegExp(q, "i");
+    query.name = reg;
+    query.author = reg;
+  }
+
+	var b = Books.find(query, {
     sort: {created_at: -1}
   });
+
+  console.log('reg', query, b.fetch());
+
+  return b;
 }
 
 function getBookIdFromParentRow(target) {

@@ -13,7 +13,7 @@ Meteor.methods({
 
     this.unblock();
 
-    console.log('sending to', to, userId, text);
+    console.log('sending to', to, userId, ltext);
 
     Email.send({
       to: to,

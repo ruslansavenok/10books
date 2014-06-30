@@ -33,6 +33,8 @@ BookStatuses = [
 
 
 
+
+
 Meteor.getUser = function (user) {
   user = findUserById(user) || Meteor.user();
   if (_.isUndefined(user)) return null;
