@@ -75,7 +75,7 @@ Handlebars.registerHelper('userById', function (id) {
   return Meteor.getUser(Meteor.users.findOne({_id: id}));
 });
 
-Handlebars.registerHelper('isUserSubscribedToBook'. function (id) {
+Handlebars.registerHelper('isUserSubscribedToBook', function (id) {
   return Books.findOne({
     subscribers: {
       $in: [id]
