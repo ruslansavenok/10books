@@ -1,6 +1,7 @@
 {
   "packages": {
     "iron-router": {},
-    "iron-router-active": {}
+    "iron-router-active": {},
+    "bootstrap-3": {}
   }
 }

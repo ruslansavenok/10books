@@ -7,9 +7,9 @@ standard-app-packages
 autopublish
 insecure
 jquery
-bootstrap
 iron-router
 accounts-base
 accounts-google
 accounts-ui
 iron-router-active
+bootstrap-3

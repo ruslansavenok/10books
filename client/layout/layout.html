@@ -1,25 +1,50 @@
 <template name="layout">
-	<a href="{{ pathFor 'library' }}"
-     class="{{ isActiveRoute 'library' 'active-item' }}">
-     Library
-  </a>
-	<a href="{{ pathFor 'orders' }}"
-     class="{{ isActiveRoute 'orders' 'active-item' }}">
-     Orders
-  </a>
-  {{#if currUser.isAdmin }}
-  <a href="{{ pathFor 'all' }}"
-     class="{{ isActiveRoute 'all' 'active-item' }}">
-     All
-  </a>
-  {{/if}}
+	<nav class="navbar navbar-default navbar-static-top" role="navigation">
+    <div class="container-fluid">
+
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">10Books</a>
+      </div>
+
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li class="{{ isActiveRoute 'library' }}">
+            <a href="{{ pathFor 'library' }}">Library</a>
+          </li>
+          <li class="{{ isActiveRoute 'orders' }}">
+            <a href="{{ pathFor 'orders' }}">Orders</a>
+          </li>
+          {{#if currUser.isAdmin }}
+          <li class="{{ isActiveRoute 'all' }}">
+            <a href="{{ pathFor 'all' }}">All</a>
+          </li>
+          {{/if}}
+        </ul>
+
+
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="/" class="mrt-layout__logout">Logout</a></li>
+        </ul>
+      </div>
+
+    </div>
+  </nav>
+
+
+
 
 
   <div>
     user id bro - {{ currUser.id }}
   </div>
 
-  <button class="mrt-layout__logout">Log Out</button>
+  <button class="btn btn-primary mrt-layout__logout">Log Out</button>
 
   <div>
     Book Statuses

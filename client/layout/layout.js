@@ -1,5 +1,7 @@
 Template.layout.events({
-  'click .mrt-layout__logout': function () {
+  'click .mrt-layout__logout': function (e) {
+    e.preventDefault();
+
     Meteor.logout(function () {
       Router.go('home');
     });
