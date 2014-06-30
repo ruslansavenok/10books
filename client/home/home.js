@@ -5,12 +5,14 @@ Template.home.events({
     }, function () {
       var user = getUserProfile();
 
+      /*
       if (user.email.indexOf('10clouds.com') == -1) {
         Meteor.logout();
         alert('You Should Sign In With @10clouds.com account!');
       } else {
         Router.go('library');
-      }
+      }*/
+      Router.go('library');
     })
   }
 });

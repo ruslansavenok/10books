@@ -11,7 +11,7 @@ Router.map(function () {
     layoutTemplate: false,
     onBeforeAction: function () {
       if (Meteor.user()) {
-        //Router.go('library')
+        Router.go('library')
       }
     }
   })

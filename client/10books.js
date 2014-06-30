@@ -9,7 +9,8 @@ Handlebars.registerHelper('currUser', function () {
   return {
     name: user.profile.name,
     email: user.services.google.email,
-    image: user.services.google.picture
+    image: user.services.google.picture,
+    isAdmin: (_.indexOf(['ruslan.savenok@10clouds.com'], user.services.google.email) != -1)
   }
 });
 

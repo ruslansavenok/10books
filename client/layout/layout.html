@@ -7,10 +7,14 @@
      class="{{ isActiveRoute 'orders' 'active-item' }}">
      Orders
   </a>
+  {{#if currUser.isAdmin }}
   <a href="{{ pathFor 'all' }}"
      class="{{ isActiveRoute 'all' 'active-item' }}">
      All
   </a>
+  {{/if}}
+
+  {{currUser.isAdmin}}
 
   <button class="mrt-layout__logout">Log Out</button>
 
