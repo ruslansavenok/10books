@@ -1,18 +1,33 @@
 Books = new Meteor.Collection('books');
 Categories = new Meteor.Collection('categories');
 
+BookStatuses = [
+  'taken',        // taken by user
+  'in_library',   // in library, meaning that nobody took it yet
+  'requested',    // added to order list
+  'accepted',     // accepted by M&M
+  'ordered',      // ordered
+  'rejected',     // reject by M&M
+  'lost',         // book was lost
+];
+
 
 Handlebars.registerHelper('currUser', function () {
   var user = Meteor.user();
   if (!user) return null;
 
   return {
+    id: user._id,
     name: user.profile.name,
     email: user.services.google.email,
     image: user.services.google.picture,
     isAdmin: (_.indexOf(['ruslan.savenok@10clouds.com'], user.services.google.email) != -1)
   }
 });
+
+Handlebars.registerHelper('bookStatuses', function () {
+  return BookStatuses;
+})
 
 /*
 function recurseTree(tree, newKey, newId) {

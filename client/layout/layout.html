@@ -14,9 +14,21 @@
   </a>
   {{/if}}
 
-  {{currUser.isAdmin}}
+
+  <div>
+    user id bro - {{ currUser.id }}
+  </div>
 
   <button class="mrt-layout__logout">Log Out</button>
+
+  <div>
+    Book Statuses
+    <select>
+      {{#each bookStatuses}}
+      <option value="{{this}}">{{this}}</option>
+      {{/each}}
+    </select>
+  </div>
 
 	<div>
 		{{> yield}}
