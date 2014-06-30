@@ -1,3 +1,7 @@
+Books = new Meteor.Collection('books')
+Categories = new Meteor.Collection('categories')
+
+
 Meteor.startup(function () {
 
 	Accounts.loginServiceConfiguration.remove({

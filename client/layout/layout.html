@@ -16,5 +16,37 @@
 
 	<div>
 		{{> yield}}
+
+    <ul>
+    {{#each categories}}
+      {{> category_option}}
+    {{/each}}
+    </ul>
+
+
+    <hr />
+    <form class="mrt_categories-form">
+      <input type="text" placeholder="name" required> <br />
+      <select>
+        <option value="-1">Parent category</option>
+        {{#each categories}}
+          <option value="{{ _id }}">{{ name }}</option>
+        {{/each}}
+      </select> <br />
+      <button type="submit">Submit</button>
+    </form>
+    <hr />
 	</div>
+</template>
+
+
+<template name="category_option">
+  <li>
+    {{ name }}
+    <ul>
+      {{#each children}}
+        {{> category_option}}
+      {{/each}}
+    </ul>
+  </li>
 </template>
