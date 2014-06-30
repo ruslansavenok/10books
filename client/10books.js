@@ -49,6 +49,22 @@ Handlebars.registerHelper('bookStatuses', function () {
   return BookStatuses;
 })
 
+Handlebars.registerHelper('currentBookStatus', function(key){
+	for (var i =0; i< BookStatuses.length; i++) {
+		if (BookStatuses[i].key === key) {
+			return BookStatuses[i].caption;
+		}
+	}
+	return null;
+
+});
+
+Handlebars.registerHelper('compareStatuses', function(key1, key2){
+	if (key1 === key2) 
+		return true;
+	else 
+		return false;
+});
 
 
 /*

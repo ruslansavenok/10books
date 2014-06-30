@@ -52,10 +52,30 @@
 
   {{#each books}}
   <tr>
+
     <td>{{ name }}</td>
     <td class="text-center">{{ author}}</td>
     <td class="text-center">CATEGORY</td>
-    <td class="text-center"> {{status}}</td>
+    {{#if currUser.isAdmin}}
+      <td class="text-center"> 
+              <div class="btn-group text-left">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                  {{ currentBookStatus status}}<span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-right mrt__status-change" role="menu">
+                  {{#each bookStatuses}}
+                    <li>
+                      <a href="#"
+                         data-status-key="{{ key }}"
+                         data-book-id="{{ ../_id }}">
+                        {{ caption }}
+                      </a>
+                    </li>
+                  {{/each}}
+                </ul>
+              </div>
+      </td>
+    {{/if}}
   </tr>
    {{/each}}
         <tr>
