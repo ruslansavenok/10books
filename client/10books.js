@@ -35,6 +35,13 @@ BookStatuses = [
   }
 ];
 
+SuperUsers = [
+  'ruslan.savenok@10clouds.com',
+  'grzegorz.slusarek@10clouds.com',
+  'aleksandra.marciniak@10clouds.com',
+  'zaneta.korpowska@10clouds.com'
+];
+
 
 Categories = [
   'Design & UX',
@@ -92,7 +99,7 @@ Meteor.getUser = function (user) {
     name: user.profile.name,
     email: user.services.google.email,
     image: user.services.google.picture,
-    isAdmin: (_.indexOf(['ruslan.savenok@10clouds.com','grzegorz.slusarek@10clouds.com'], user.services.google.email) != -1)
+    isAdmin: (_.indexOf(SuperUsers, user.services.google.email) != -1)
   }
 }
 
