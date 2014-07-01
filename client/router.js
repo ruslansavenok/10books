@@ -8,6 +8,10 @@ Router.configure({
   onBeforeAction: function () {
     Session.set('query', null); // this should be setted per page
     Session.set('status_filter', null);
+
+    if (!Meteor.user() && this.route.name != 'home') {
+      Router.go('home');
+    }
   }
 })
 
