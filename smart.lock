@@ -7,7 +7,6 @@
       "bootstrap-3": {},
       "handlebar-helpers": {},
       "cron": {},
-      "easy-search": {},
       "moment": {}
     },
     "packages": {
@@ -35,11 +34,6 @@
         "git": "https://github.com/alexsuslov/Meteor.cron.git",
         "tag": "v0.0.1",
         "commit": "5216d14472fee7b692e8371aadc9f35f54ba9bb0"
-      },
-      "easy-search": {
-        "git": "https://github.com/matteodem/meteor-easy-search.git",
-        "tag": "v0.4.55",
-        "commit": "2c2a4d2d9a905530dd6f076b585bafbd0c40e5ca"
       },
       "moment": {
         "git": "https://github.com/acreeger/meteor-moment.git",
