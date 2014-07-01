@@ -37,7 +37,7 @@ Meteor.methods({
 
     Email.send({
       to: to,
-      from: '10Books-noreply@your-mamma-is-fat.com',
+      from: '10books@10clouds.com',
       subject: subject,
       text: text
     });
