@@ -1,4 +1,5 @@
 Books = new Meteor.Collection('books')
+BookVotes = new Meteor.Collection("book_votes");
 Categories = new Meteor.Collection('categories')
 
 

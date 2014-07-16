@@ -1,4 +1,5 @@
 Books = new Meteor.Collection("books");
+BookVotes = new Meteor.Collection("book_votes");
 Categories = new Meteor.Collection('categories');
 
 Session.set('query', null); // this should be setted per page
@@ -173,4 +174,23 @@ Handlebars.registerHelper('option', function (name, active, options) {
   var str = '<option value="' + name + '"'+ (name == active ? ' selected' : '') + '>' + name + '</option>';
 
   return new Handlebars.SafeString(str);
+});
+
+
+Handlebars.registerHelper('userVote', function (bookId) {
+  var currUser = Meteor.getUser();
+
+  if (!currUser) return false;
+
+  var voteObj = BookVotes.findOne({user_id: currUser.id, book_id: bookId});
+
+  if (!voteObj) {
+    return {
+      vote: 0
+    }
+  } else {
+    return {
+      vote: voteObj.vote
+    }
+  }
 });

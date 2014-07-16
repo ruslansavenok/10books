@@ -29,6 +29,16 @@
   /*width: 250px;*/
   white-space: nowrap;
 }
+.cell__vote {
+  white-space: nowrap;
+  width: 100px;
+}
+.votes-counter {
+  font-size: 20px;
+  font-weight: bold;
+  padding: 0 0 5px 0;
+}
+
 .notify-btns {
   padding: 3px 0 0 0;
 }
@@ -65,3 +75,5 @@ html, body {
 .filter-dropdown .checkbox {
   margin: 5px 0;
 }
+
+

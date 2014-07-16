@@ -24,6 +24,7 @@
         <th class="text-center">Author</th>
         <th class="text-center">Category</th>
         <th class="text-center">Requested by</th>
+        <th class="text-center">Votes</th>
         <th class="text-center">Status</th>
       </tr>
     </thead>
@@ -39,6 +40,40 @@
         {{#with userById requested_by}}
           {{name}}
         {{/with}}
+      </td>
+      <td class="text-center cell__vote">
+        <div class="votes-counter">
+            <span class="text-success">
+              {{#if upvotes}}
+                {{ upvotes }}
+              {{else}}
+                0
+              {{/if}}
+            </span>/<span class="text-danger">
+              {{#if downvotes}}
+                {{ downvotes }}
+              {{else}}
+                0
+              {{/if}}
+            </span>
+        </div>
+
+        {{#if $eq status 'requested' }}
+          {{#if $neq requested_by currUser.id }}
+
+            {{#with userVote _id}}
+            <div class="btn-group">
+              <span class="btn btn-sm btn-default mrt__vote {{#if $gt vote 0}}btn-success active{{/if}}" data-vote="1">
+                <i class="glyphicon glyphicon-thumbs-up"></i>
+              </span>
+              <span class="btn btn-default btn-sm mrt__vote  {{#if $lt vote 0}}btn-danger active{{/if}}" data-vote="-1">
+                <i class="glyphicon glyphicon-thumbs-down"></i>
+              </span>
+            </div>
+            {{/with}}
+
+          {{/if}}
+        {{/if}}
       </td>
       <td class="text-center cell__actions">
         {{#if currUser.isAdmin}}

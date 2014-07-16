@@ -11,6 +11,59 @@ $(document).on('click', function (e) {
 });
 
 Template.layout.events({
+  'click .mrt__vote': function (e) {
+    var $btn = $(e.currentTarget);
+
+    if ($btn.hasClass('active')) {
+      return;
+    }
+
+    var $btns = $btn.parent().find('.mrt__vote');
+    var currUser = Meteor.getUser();
+    var newVote = $btn.data('vote');
+
+    $btns.removeClass('active');
+    $btn.addClass('active');
+
+    var bookId = getBookIdFromParentRow(e.target);
+    var prevVote = BookVotes.findOne({user_id: currUser.id, book_id: bookId});
+
+
+    if (prevVote) {
+      BookVotes.update({_id: prevVote._id}, {
+        $set: {
+          vote: newVote
+        }
+      });
+    } else {
+      BookVotes.insert({
+        book_id: bookId,
+        user_id: currUser.id,
+        vote: newVote
+      })
+    }
+
+    var bookAction;
+
+    // DownVote
+    if (newVote < 0) {
+      bookAction = {
+        upvotes: (prevVote && prevVote.vote > 0 ? -1 : 0),
+        downvotes: -1
+      }
+    } else {
+      bookAction = {
+        upvotes: 1,
+        downvotes: (prevVote && prevVote.vote < 0 ? 1 : 0)
+      }
+    }
+
+    Books.update(bookId, {
+      $inc: bookAction
+    })
+  },
+
+
   'click .mrt__filter-dropdown-toggle': function (e) {
     var $btn = $(e.target);
     var $dpd = $btn.next();
