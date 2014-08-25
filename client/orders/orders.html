@@ -31,7 +31,13 @@
     <tbody>
     {{#each books}}
     <tr class="book-row" data-book-id="{{ _id }}">
-      <td><a href="{{url}}" target="_blank">{{ name }}</a></td>
+      <td>
+      {{#if url}}
+        <a href="{{url}}" target="_blank">{{ name }}</a>
+      {{else}}
+        {{ name }}
+      {{/if}}
+      </td>
       <td class="text-center">{{ author}}</td>
       <td class="text-center">
         {{> categories_select }}

@@ -45,14 +45,16 @@ SuperUsers = [
 
 
 Categories = [
-  'Design & UX',
-  'Computer Security',
-  'Business & Management',
-  'Software Developement',
   'Web Developement',
   'Mobile Developement',
+  'Programming & Software Developement',
+  'Computer Security',
   'Databases',
-  'Computer Graphics'
+  'Operating systems',
+  'Design & UX',
+  'Computer Graphics',
+  'Business & Management',
+  'Recruitment'
 ];
 
 
