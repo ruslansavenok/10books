@@ -76,7 +76,7 @@ Meteor.filterBooks = function (statusesArray) {
     books.forEach(function (book) {
       if (book.name.toLowerCase().indexOf(query) != -1 ||
           book.author.toLowerCase().indexOf(query) != -1 ||
-          book.category.toLowerCase().indexOf(query) != -1) {
+          (book.category && book.category.toLowerCase().indexOf(query) != -1)) {
         filtered.push(book);
       }
     });
