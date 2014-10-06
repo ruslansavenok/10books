@@ -14,7 +14,7 @@ Meteor.startup(function () {
         Books.find({
           status: 'taken'
         }).forEach(function (book) {
-          var allowedTime = 1000 * 60 * 60 * 24 * 30; // 30 days
+          var allowedTime = 1000 * 60 * 60 * 24 * 60; // 60 days
 
           if (book.taken_date < (new Date().getTime() - allowedTime)) {
             var emailText = 'Hey! You took "' + book.name + '" ' + moment(book.taken_date).endOf('day').fromNow() + '. Please return it!';
@@ -37,7 +37,7 @@ Meteor.methods({
 
     Email.send({
       to: to,
-      from: '10books@10clouds.com',
+      from: 'aleksandra.marciniak@10clouds.com',
       subject: subject,
       text: text
     });
