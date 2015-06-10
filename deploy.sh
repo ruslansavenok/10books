@@ -1,5 +1,4 @@
 #!/bin/bash 
-
 # IP or URL of the server you want to deploy to
 APP_HOST="books.10clouds.com"
 
@@ -21,10 +20,10 @@ fi
 
 echo Deploying...
 $METEOR_CMD bundle books.10clouds.com.tgz > /dev/null 2>&1 &&
-scp $SSH_OPT books.10clouds.com.tgz $SSH_HOST:/home/books10c/tmp/ > /dev/null 2>&1 &&
-scp $SSH_OPT update_up.sh $SSH_HOST:/home/books10c/ > /dev/null 2>&1 &&
+scp -v $SSH_OPT books.10clouds.com.tgz $SSH_HOST:/home/books10c/tmp/ #> /dev/null 2>&1 &&
+scp -v $SSH_OPT update_up.sh $SSH_HOST:/home/books10c/ > /dev/null 2>&1 &&
 rm books.10clouds.com.tgz> /dev/null 2>&1 &&
-ssh $SSH_OPT $SSH_HOST PORT=$PORT MONGO_URL=$MONGO_URL ROOT_URL=$ROOT_URL APP_DIR=$APP_DIR 'sudo -E bash -s' > ERRORS 2>&1 <<'ENDSSH'
+ssh -v $SSH_OPT $SSH_HOST PORT=$PORT MONGO_URL=$MONGO_URL ROOT_URL=$ROOT_URL APP_DIR=$APP_DIR 'sudo -E bash -s' > ERRORS 2>&1 <<'ENDSSH'
 chmod a+x /home/books10c/update_up.sh
 chown books10c:books10c /home/books10c/update_up.sh
 su  books10c /home/books10c/update_up.sh
