@@ -41,7 +41,8 @@ SuperUsers = [
   'grzegorz.slusarek@10clouds.com',
   'aleksandra.marciniak@10clouds.com',
   'zaneta.korpowska@10clouds.com',
-  'magdalena.jablonska@10clouds.com'
+  'magdalena.jablonska@10clouds.com',
+  'aleksandra.jakubczak@10clouds.com'
 ];
 
 
