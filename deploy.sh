@@ -1,4 +1,5 @@
-#!/bin/bash 
+#!/bin/bash
+
 # IP or URL of the server you want to deploy to
 APP_HOST="books.10clouds.com"
 
@@ -11,7 +12,7 @@ ROOT_URL=http://$APP_HOST
 PORT=58080
 APP_DIR=/home/books10c/book_app/books.10clouds.com
 MONGO_URL='mongodb://book_user:Qwe23$as9@127.0.0.1:27017/bookDB'
-SSH_HOST="root@$APP_HOST" SSH_OPT=""
+SSH_HOST="books10c@$APP_HOST" SSH_OPT=""
 if [ -d ".meteor/meteorite" ]; then
     METEOR_CMD=mrt
   else
