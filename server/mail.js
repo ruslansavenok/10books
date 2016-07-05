@@ -1,9 +1,7 @@
-var host = 'smtp.mandrillapp.com';
+var host = 'smtp.sendgrid.net';
 var port = '587';
-var smtpUser = 'ruslan.savenok@gmail.com';
-var smtpPass = 'Vpztihb0FPmaYNP7BQ8JHg';
-
-
+var smtpUser = '10books_user';
+var smtpPass = "'d+uy$j3Kxv%UJ=h";
 
 Meteor.startup(function () {
   process.env.MAIL_URL = 'smtp://' + smtpUser + ':' + smtpPass + '@' + host + ':' + port + '/';
