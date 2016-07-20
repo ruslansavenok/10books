@@ -1,28 +1,29 @@
-/* on login screen, meteor renders default layout before disabling it ;(
 Router.configure({
   layoutTemplate: 'layout'
-});
-*/
-
-Router.configure({
-  onBeforeAction: function () {
-    Session.set('query', null); // this should be setted per page
-    Session.set('status_filter', null);
-
-    if (!Meteor.user() && !Meteor.loggingIn() && this.route.name != 'home') {
-      Router.go('home');
-    }
-  }
 })
 
+Router.onBeforeAction(function () {
+  Session.set('query', null)
+  Session.set('status_filter', null)
+
+  if (!Meteor.user() && !Meteor.loggingIn() && this.route.name !== 'home') {
+    this.render('home')
+  } else {
+    this.next()
+  }
+})
 
 Router.map(function () {
   this.route('home', {
     path: '/',
-    layoutTemplate: false,
-    onBeforeAction: function () {
+    controller: RouteController.extend({
+      layoutTemplate: false,
+    }),
+    onBeforeAction: function() {
       if (Meteor.user()) {
         Router.go('library')
+      } else {
+        this.next()
       }
     }
   })
@@ -38,4 +39,4 @@ Router.map(function () {
     path: '/all',
     layoutTemplate: 'layout'
   })
-});
+})
