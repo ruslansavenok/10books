@@ -19,14 +19,13 @@ Template.layout.events({
     }
 
     var $btns = $btn.parent().find('.mrt__vote');
-    var currUser = Meteor.getUser();
     var newVote = $btn.data('vote');
 
     $btns.removeClass('active');
     $btn.addClass('active');
 
     var bookId = getBookIdFromParentRow(e.target);
-    var prevVote = BookVotes.findOne({user_id: currUser.id, book_id: bookId});
+    var prevVote = BookVotes.findOne({user_id: Meteor.userId(), book_id: bookId});
 
 
     if (prevVote) {
@@ -38,7 +37,7 @@ Template.layout.events({
     } else {
       BookVotes.insert({
         book_id: bookId,
-        user_id: currUser.id,
+        user_id: Meteor.userId(),
         vote: newVote
       })
     }
@@ -136,7 +135,6 @@ Template.layout.events({
     var bookId = getBookIdFromParentRow(e.target);
     var newStatus = $(e.target).data('status-key');
     var updateDict = {status: newStatus};
-    var currUser = Meteor.getUser();
 
     if (newStatus != 'taken') {
       notifySubscribers(bookId);
@@ -148,7 +146,7 @@ Template.layout.events({
       });
     } else {
       _.extend(updateDict, {
-        taken_by: currUser.id,
+        taken_by: Meteor.userId(),
         taken_date: new Date().getTime()
       });
     }
@@ -182,7 +180,7 @@ Template.layout.events({
     Books.update({_id: bookId}, {
       $set: {
         status: 'taken',
-        taken_by: Meteor.getUser().id,
+        taken_by: Meteor.userId(),
         taken_date: new Date().getTime()
       }
     });
@@ -235,7 +233,7 @@ function getBookIdFromParentRow(target) {
 
 function notifySubscribers(bookId) {
   var book = Books.findOne({_id: bookId});
-  var takenByUser = Meteor.getUser(book.taken_by);
+  var takenByUser = Meteor.users.find({_id: book.taken_by});
   var emailText = 'Book "' + book.name + '" was returned by ' + takenByUser.name + ' and now available';
 
   _.each(book.subscribers, function (userId) {

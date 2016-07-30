@@ -148,19 +148,18 @@ Handlebars.registerHelper('compareStatuses', function(key1, key2){
 Meteor.startup(function () {
   Handlebars.registerHelper('canRemove', function(bookId) {
     var book = Books.find({_id: bookId}).fetch()[0];
-    var currUser = Meteor.getUser();
 
-    if (!currUser || !book) return false;
+    if (!Meteor.userId() || !book) return false;
 
 
-    return Meteor.user()._id == book.requested_by && book.status == 'requested';
+    return Meteor.userId() == book.requested_by && book.status == 'requested';
   });
 });
 
 
 
 Handlebars.registerHelper('userById', function (id) {
-  return Meteor.getUser(id);
+  return Meteor.users.find({_id: id});
 });
 
 
@@ -182,11 +181,7 @@ Handlebars.registerHelper('option', function (name, active, options) {
 
 
 Handlebars.registerHelper('userVote', function (bookId) {
-  var currUser = Meteor.getUser();
-
-  if (!currUser) return false;
-
-  var voteObj = BookVotes.findOne({user_id: currUser.id, book_id: bookId});
+  var voteObj = BookVotes.findOne({user_id: Meteor.userId(), book_id: bookId});
 
   if (!voteObj) {
     return {
