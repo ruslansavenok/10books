@@ -24,7 +24,7 @@
           <li class="{{ isActiveRoute 'orders' }}">
             <a href="{{ pathFor 'orders' }}">Orders</a>
           </li>
-          {{#if currUser.isAdmin }}
+          {{#if isInRole 'admin'}}
           <li class="{{ isActiveRoute 'all' }}">
             <a href="{{ pathFor 'all' }}">All</a>
           </li>

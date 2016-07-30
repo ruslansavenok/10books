@@ -36,16 +36,6 @@ BookStatuses = [
   }
 ];
 
-SuperUsers = [
-  'ruslan.savenok@10clouds.com',
-  'grzegorz.slusarek@10clouds.com',
-  'aleksandra.marciniak@10clouds.com',
-  'zaneta.korpowska@10clouds.com',
-  'magdalena.jablonska@10clouds.com',
-  'aleksandra.jakubczak@10clouds.com'
-];
-
-
 Categories = [
   'Web Developement',
   'Mobile Developement',
@@ -89,32 +79,13 @@ Meteor.filterBooks = function (statusesArray) {
   }
 }
 
-
-Meteor.getUser = function (user) {
-  if (!user) {
-    user = Meteor.user();
-  } else {
-    user = findUserById(user);
-  }
-
-  if (_.isUndefined(user) || !user) return null;
-
-  return {
-    id: user._id,
-    name: user.profile.name,
-    email: user.services.google.email,
-    image: user.services.google.picture,
-    isAdmin: (_.indexOf(SuperUsers, user.services.google.email) != -1)
-  }
-}
-
 function findUserById(id) {
   return Meteor.users.findOne({_id: id});
 }
 
 
 Handlebars.registerHelper('currUser', function () {
-  return Meteor.getUser();
+  return Meteor.user();
 });
 
 

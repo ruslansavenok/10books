@@ -82,7 +82,7 @@
         {{/if}}
       </td>
       <td class="text-center cell__actions">
-        {{#if currUser.isAdmin}}
+        {{#if isInRole 'admin'}}
           {{> book_statuses}}
         {{else}}
           {{#if canRemove _id }}
