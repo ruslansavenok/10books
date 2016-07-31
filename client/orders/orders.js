@@ -1,3 +1,5 @@
-Template.orders.books = function (argument) {
-  return Meteor.filterBooks(['requested', 'accepted', 'ordered']);
-}
+Template.orders.helpers({
+  books() {
+    return Meteor.filterBooks(['requested', 'accepted', 'ordered']);
+  }
+})

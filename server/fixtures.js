@@ -1,6 +1,5 @@
 if (!Roles.getAllRoles().count()) {
   Roles.createRole('admin')
-  Roles.createRole('editor')
 }
 
 

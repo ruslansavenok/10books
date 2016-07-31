@@ -1,4 +1,12 @@
-AdminConfig = {}
+AdminConfig = {
+  collections: {
+    Categories: {
+      tableColumns: [
+        {label: 'Category Name', name: 'name'}
+      ]
+    }
+  }
+}
 
 // Fix User listing
 // https://github.com/yogiben/meteor-admin/issues/293

@@ -1,6 +1,20 @@
+Meteor.subscribe('books')
+Meteor.subscribe('categories')
+Meteor.subscribe('book_votes')
+Meteor.subscribe('users')
+
+// TODO: proper location
 Books = new Meteor.Collection("books");
 BookVotes = new Meteor.Collection("book_votes");
 Categories = new Meteor.Collection('categories');
+
+Categories.attachSchema(
+  new SimpleSchema({
+    name: {
+      type: String
+    }
+  })
+)
 
 Session.set('query', null); // this should be setted per page
 Session.set('status_filter', null);
@@ -34,19 +48,6 @@ BookStatuses = [
     key: 'lost',
     caption: 'Lost'
   }
-];
-
-Categories = [
-  'Web Developement',
-  'Mobile Developement',
-  'Programming & Software Developement',
-  'Computer Security',
-  'Databases',
-  'Operating systems',
-  'Design & UX',
-  'Computer Graphics',
-  'Business & Management',
-  'Recruitment'
 ];
 
 
@@ -95,9 +96,13 @@ Handlebars.registerHelper('bookStatuses', function () {
 
 
 Handlebars.registerHelper('categories', function (active) {
-  return Categories;
+  return Categories.find();
 });
 
+
+Handlebars.registerHelper('fromNow', function (date) {
+  return moment(date).fromNow()
+});
 
 Handlebars.registerHelper('currentBookStatus', function(key){
 	for (var i =0; i< BookStatuses.length; i++) {
@@ -130,7 +135,7 @@ Meteor.startup(function () {
 
 
 Handlebars.registerHelper('userById', function (id) {
-  return Meteor.users.find({_id: id});
+  return Meteor.users.findOne({_id: id});
 });
 
 

@@ -1,3 +1,5 @@
-Template.library.books = function (argument) {
-  return Meteor.filterBooks(['in_library', 'taken']);
-}
+Template.library.helpers({
+  books(argument) {
+    return Meteor.filterBooks(['in_library', 'taken']);
+  }
+})

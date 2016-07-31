@@ -1,5 +1,13 @@
 Router.configure({
-  layoutTemplate: 'layout'
+  layoutTemplate: 'layout',
+  waitOn: function () {
+    return [
+      Meteor.subscribe('books'),
+      Meteor.subscribe('book_votes'),
+      Meteor.subscribe('categories'),
+      Meteor.subscribe('users')
+    ]
+  }
 })
 
 Router.onBeforeAction(function () {
@@ -8,9 +16,9 @@ Router.onBeforeAction(function () {
 
   if (!Meteor.user() && !Meteor.loggingIn() && this.route.name !== 'home') {
     this.render('home')
-  } else {
-    this.next()
+
   }
+  this.next()
 })
 
 Router.map(function () {
@@ -19,6 +27,7 @@ Router.map(function () {
     controller: RouteController.extend({
       layoutTemplate: false,
     }),
+    waitOn: null,
     onBeforeAction: function() {
       if (Meteor.user()) {
         Router.go('library')
@@ -29,14 +38,11 @@ Router.map(function () {
   })
   this.route('library', {
     path: '/library',
-    layoutTemplate: 'layout'
   });
   this.route('orders', {
     path: '/orders',
-    layoutTemplate: 'layout'
   });
   this.route('all', {
     path: '/all',
-    layoutTemplate: 'layout'
   })
 })

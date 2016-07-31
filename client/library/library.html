@@ -30,8 +30,10 @@
         {{#if taken_by}}
           {{#if $neq taken_by currUser.id}}
             {{#with userById taken_by }}
-              Taken by <b>{{ name }}</b> <br />
+              Taken by <b>{{ profile.name }}</b>
             {{/with}}
+            <br />
+            {{ fromNow(taken_date) }}
 
             <div class="notify-btns">
             {{#if isUserSubscribedToBook _id currUser.id }}
