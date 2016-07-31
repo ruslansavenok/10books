@@ -65,7 +65,7 @@
         </div>
 
         {{#if $eq status 'requested' }}
-          {{#if $neq requested_by currUser.id }}
+          {{#if $neq requested_by currUser._id }}
 
             {{#with userVote _id}}
             <div class="btn-group">

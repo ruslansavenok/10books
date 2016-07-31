@@ -22,6 +22,9 @@ Accounts.validateLoginAttempt((attempt) => {
 
 
 Accounts.onCreateUser(function(options, user) {
+  user.profile = {
+    name: user.services.google.name
+  }
   user.emails = [
     {
       address: user.services.google.email,

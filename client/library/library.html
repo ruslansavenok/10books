@@ -28,7 +28,7 @@
       </td>
       <td class="text-center cell__actions">
         {{#if taken_by}}
-          {{#if $neq taken_by currUser.id}}
+          {{#if $neq taken_by currUser._id}}
             {{#with userById taken_by }}
               Taken by <b>{{ profile.name }}</b>
             {{/with}}
@@ -36,7 +36,7 @@
             {{ fromNow(taken_date) }}
 
             <div class="notify-btns">
-            {{#if isUserSubscribedToBook _id currUser.id }}
+            {{#if isUserSubscribedToBook _id currUser._id }}
               <div class="btn btn-danger mrt__unnofify-me">Cancel Notification</div>
             {{else}}
               <div class="btn btn-primary mrt__nofify-me">Notify when returned</div>
@@ -44,7 +44,7 @@
             </div>
           {{/if}}
 
-          {{#if $eq taken_by currUser.id}}
+          {{#if $eq taken_by currUser._id}}
             <div class="btn btn-warning mrt__return-book">Return book</div>
           {{/if}}
         {{else}}
