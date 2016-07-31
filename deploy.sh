@@ -41,6 +41,7 @@ cd bundle
 MONGO_URL=$MONGO_URL \
 ROOT_URL=$ROOT_URL \
 PORT=$PORT \
+MAIL_URL='smtp://10books_user:%27d%2Buy%24j3Kxv%25UJ%3Dh@smtp.sendgrid.net:587/' \
 $NODE_PATH/forever start --append -l forever.log -o out.log -e error.log main.js
 ENDSSH
 
