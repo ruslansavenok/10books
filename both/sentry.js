@@ -1,4 +1,4 @@
 RavenLogger.initialize({
-  client: 'http://987d173cd3ce4a8eb692ba48ef2f41ad@sentry.leadfinder.pl/5',
-  server: 'http://14c53f89c1bb4e92a69861239a84dd15:3bc6ae058e2240c9922fc9bdb6cce8b4@sentry.leadfinder.pl/4'
+  client: 'http://17f535680d3a40c68474aa2cb12e837d@sentry.10clouds.com/117',
+  server: 'http://30158b7d72524de89b45f7055a213355:77b38d5e90cb4cabb6bbf368c61a410c@sentry.10clouds.com/116'
 });
