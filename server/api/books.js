@@ -10,7 +10,8 @@ Books.allow({
     return userId
   },
 
-  remove(userId) {
-    return Roles.userIsInRole(userId, 'admin')
+  remove(userId, doc) {
+    return Roles.userIsInRole(userId, 'admin') ||
+      (doc.requested_by == userId && doc.status == 'requested')
   }
 })
