@@ -8,7 +8,7 @@ Meteor.methods({
 
     Email.send({
       to: to,
-      from: 'aleksandra.marciniak@10clouds.com',
+      from: 'olga.kondraciuk@10clouds.com',
       subject: subject,
       text: text
     });
