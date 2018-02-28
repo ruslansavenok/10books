@@ -14,9 +14,8 @@ Router.onBeforeAction(function () {
   Session.set('query', null)
   Session.set('status_filter', null)
 
-  if (!Meteor.user() && !Meteor.loggingIn() && this.route.name !== 'home') {
-    this.render('home')
-
+  if (!Meteor.userId()) {
+    this.redirect('home')
   }
   this.next()
 })
@@ -29,7 +28,7 @@ Router.map(function () {
     }),
     waitOn: null,
     onBeforeAction: function() {
-      if (Meteor.user()) {
+      if (Meteor.userId()) {
         Router.go('library')
       } else {
         this.next()
